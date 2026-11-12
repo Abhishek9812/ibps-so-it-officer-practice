@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Free practice and timed mock tests for IBPS RRB Officer Scale II (IT Officer) with instant solutions.">
+<style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Scale II Test Desk</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: an exam console. Sticky status bar, question sheet on the left, numbered answer palette on the right; home is a ledger of tests and past scorecards. */
+:root{
+  --bg:#f2f4f9; --surface:#ffffff; --sunk:#e9edf5; --ink:#131a2b; --muted:#566178; --line:#d6dcea;
+  --accent:#2747c7; --accent-ink:#ffffff; --accent-soft:#e4e9fb;
+  --good:#167a41; --good-bg:#e0f3e7; --bad:#bf2f29; --bad-bg:#fbe5e3;
+  --review:#6f38bd; --review-bg:#ede4fa; --warn:#9a5b00; --warn-bg:#fbefd6;
+  --display:"Space Grotesk","Segoe UI",system-ui,sans-serif; --body:"Inter","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0d111a; --surface:#161c29; --sunk:#1e2636; --ink:#e7ebf4; --muted:#9aa5bb; --line:#2b3447;
+  --accent:#8aa2ff; --accent-ink:#0b1020; --accent-soft:#1f2a4d;
+  --good:#58c887; --good-bg:#15301f; --bad:#f27f78; --bad-bg:#3b1b19;
+  --review:#b991f5; --review-bg:#2b1e42; --warn:#e3ab52; --warn-bg:#35280f; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0d111a; --surface:#161c29; --sunk:#1e2636; --ink:#e7ebf4; --muted:#9aa5bb; --line:#2b3447;
+  --accent:#8aa2ff; --accent-ink:#0b1020; --accent-soft:#1f2a4d;
+  --good:#58c887; --good-bg:#15301f; --bad:#f27f78; --bad-bg:#3b1b19;
+  --review:#b991f5; --review-bg:#2b1e42; --warn:#e3ab52; --warn-bg:#35280f; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.2}
+h1{font-size:26px} h2{font-size:19px} h3{font-size:15px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)} .small{font-size:13px}
+.label{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:500;min-height:38px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.ghost{background:transparent}
+.btn.review{border-color:var(--review);color:var(--review)}
+.btn.danger{border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.spread{justify-content:space-between}
+.head{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between}
+.count{display:flex;gap:10px;align-items:baseline}
+.count b{font-family:var(--display);font-size:30px;font-variant-numeric:tabular-nums}
+.banner{padding:14px 16px;background:var(--warn-bg);border:1px solid var(--warn);border-radius:12px;color:var(--ink)}
+/* test card */
+.test{padding:18px;display:flex;flex-direction:column;gap:14px}
+.tablebox{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+.secname{font-weight:600} .secname + div{font-size:13px;color:var(--muted)}
+.cw .c{color:var(--good);font-weight:600} .cw .w{color:var(--bad);font-weight:600}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;background:var(--sunk);color:var(--muted)}
+.pill.exam{background:var(--accent-soft);color:var(--accent)}
+/* runner */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar .in{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.timer{font-family:var(--display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;padding:2px 12px;border-radius:8px;background:var(--sunk)}
+.timer.low{background:var(--bad-bg);color:var(--bad)}
+.run{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media (max-width:860px){.run{grid-template-columns:minmax(0,1fr)}}
+.sheet{padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.ctx{background:var(--sunk);border-radius:8px;padding:12px 14px;font-size:14.5px;max-width:75ch}
+.qtext{font-size:16.5px;max-width:70ch;font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px;max-width:70ch}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 12px;width:100%}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .k{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12.5px;font-weight:600;font-family:var(--display)}
+.opt .v{min-width:0;overflow-wrap:anywhere;padding-top:2px}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)} .opt.sel .k{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opt.ok{border-color:var(--good);background:var(--good-bg)} .opt.ok .k{background:var(--good);color:var(--surface);border-color:var(--good)}
+.opt.no{border-color:var(--bad);background:var(--bad-bg)} .opt.no .k{background:var(--bad);color:var(--surface);border-color:var(--bad)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.sol{border-left:3px solid var(--good);background:var(--good-bg);padding:12px 14px;border-radius:0 8px 8px 0;max-width:70ch}
+.sol.miss{border-color:var(--bad);background:var(--bad-bg)}
+.sol.skip{border-color:var(--muted);background:var(--sunk)}
+.side{padding:16px;display:flex;flex-direction:column;gap:14px}
+.pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.pal button{height:36px;border-radius:6px;border:1px solid var(--line);background:var(--sunk);font-family:var(--display);font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:600;color:var(--muted)}
+.pal .na{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.pal .an{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.pal .mk{background:var(--review-bg);border-color:var(--review);color:var(--review)}
+.pal .am{background:var(--review-bg);border-color:var(--good);color:var(--review);box-shadow:inset 0 -4px 0 var(--good)}
+.pal .cur{outline:2px solid var(--accent);outline-offset:1px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line);background:var(--sunk);margin-right:6px;vertical-align:-1px}
+.legend .na{background:var(--bad-bg);border-color:var(--bad)} .legend .an{background:var(--good-bg);border-color:var(--good)} .legend .mk{background:var(--review-bg);border-color:var(--review)}
+/* result */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{padding:14px 16px}
+.tile b{display:block;font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums;line-height:1.2}
+.rv{padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:500}
+.chip.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(8,12,22,.55);display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:20px;max-width:440px;width:100%;display:flex;flex-direction:column;gap:14px}
+textarea.copy{width:100%;min-height:150px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--sunk);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.pal button{transition:border-color .12s,background .12s}}
+</style>
+</head>
+<body>
+
+<div id="app"><div class="wrap"><p class="muted">Loading tests…</p></div></div>
+<div id="modal" class="modal" hidden></div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const txt=s=>esc(s).replace(/\n/g,'<br>');
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+          set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+          del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const LETTERS=['A','B','C','D','E'];
+let INDEX=null, TESTS={}, attempts=LS.get('td.attempts',[]), S=LS.get('td.session',null);
+let view={name:'home'}, db=null, ticker=null, shownAt=0, loadError='';
+
+/* ---------- pure helpers ---------- */
+function fmtNum(x){return (Math.round(x*100)/100).toFixed(2).replace(/\.00$/,'').replace(/(\.\d)0$/,'$1')}
+function fmtTime(sec){sec=Math.max(0,Math.round(sec));const m=Math.floor(sec/60),s=sec%60;return m+'m '+String(s).padStart(2,'0')+'s'}
+function clock(sec){sec=Math.max(0,Math.ceil(sec));const m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function scoreSection(sec,resp,neg){
+  let c=0,w=0;const topics={};
+  sec.qs.forEach((q,i)=>{const r=resp[i];const t=topics[q.t]||(topics[q.t]=[0,0,0]);
+    if(r==null||r<0)t[2]++;else if(r===q.a){c++;t[0]++}else{w++;t[1]++}});
+  const score=c*sec.marks-w*sec.marks*neg;
+  return {attempted:c+w,correct:c,wrong:w,score:Math.round(score*1000)/1000,lost:Math.round(w*sec.marks*neg*1000)/1000,max:sec.qs.length*sec.marks,n:sec.qs.length,topics};
+}
+function daysTo(dateStr){const d=new Date(dateStr+'T00:00:00');const now=new Date();now.setHours(0,0,0,0);return Math.round((d-now)/864e5)}
+
+/* ---------- data ---------- */
+async function loadIndex(){
+  try{const r=await fetch('tests/index.json',{cache:'no-store'});if(!r.ok)throw new Error(r.status);INDEX=await r.json();loadError=''}
+  catch(e){loadError='Could not load the test list. Check your connection and try again.'}
+}
+async function loadTest(id){
+  if(TESTS[id])return TESTS[id];
+  const meta=INDEX.tests.find(t=>t.id===id);
+  const r=await fetch(meta.file,{cache:'no-store'});if(!r.ok)throw new Error('Test file missing');
+  return TESTS[id]=await r.json();
+}
+function saveSession(){if(S)LS.set('td.session',S);else LS.del('td.session')}
+function saveAttempts(){LS.set('td.attempts',attempts)}
+async function initDb(){
+  try{
+    if(!window.claude||!window.claude.use)return;
+    db=await window.claude.use('db');if(!db)return;
+    const snap=await db.collection('attempts').get();
+    const have=new Set(attempts.map(a=>a.id));let changed=false;
+    snap.docs.forEach(d=>{const a=d.data();if(a&&a.id&&!have.has(a.id)){attempts.push(a);changed=true}});
+    if(changed){attempts.sort((a,b)=>a.finishedAt-b.finishedAt);saveAttempts();if(view.name==='home')render()}
+    const remote=new Set(snap.docs.map(d=>d.id));
+    for(const a of attempts){if(!remote.has(a.id)){try{await db.doc('attempts/'+a.id).set(a)}catch(e){}}}
+  }catch(e){db=null}
+}
+
+/* ---------- session ---------- */
+function curTest(){return TESTS[S.testId]}
+function curSec(){const t=curTest();return t.sections.find(s=>s.id===S.order[S.secIdx])}
+async function startSession(testId,mode,scope){
+  let test;try{test=await loadTest(testId)}catch(e){return modal('Could not open the test','<p>The question file did not load. Check your connection and try again.</p>','Close')}
+  const order=scope==='full'?test.sections.map(s=>s.id):[scope];
+  S={id:'a'+Date.now().toString(36),testId,mode,scope,order,secIdx:0,cur:0,startedAt:Date.now(),resp:{},marked:{},visited:{},time:{},used:{},endsAt:0};
+  order.forEach(id=>{const n=test.sections.find(s=>s.id===id).qs.length;
+    S.resp[id]=Array(n).fill(-1);S.marked[id]=Array(n).fill(false);S.visited[id]=Array(n).fill(false);S.time[id]=Array(n).fill(0);S.used[id]=0});
+  beginSection();
+}
+function beginSection(){
+  const sec=curSec();S.cur=0;S.visited[sec.id][0]=true;
+  if(S.mode==='exam')S.endsAt=Date.now()+sec.secs*1000;
+  S.phase='run';shownAt=Date.now();saveSession();view={name:'run'};render();startTicker();
+}
+function commitTime(){
+  if(!S||view.name!=='run')return;const sec=curSec();const d=Date.now()-shownAt;
+  if(d>0&&d<36e5){S.time[sec.id][S.cur]+=d;S.used[sec.id]+=d}
+  shownAt=Date.now();
+}
+function goTo(i){
+  const sec=curSec();if(i<0||i>=sec.qs.length)return;
+  commitTime();S.cur=i;S.visited[sec.id][i]=true;saveSession();render();window.scrollTo(0,0);
+}
+function choose(i){
+  const sec=curSec(),id=sec.id;
+  if(S.mode==='practice'){if(S.resp[id][S.cur]>=0)return;commitTime();S.resp[id][S.cur]=i}
+  else S.resp[id][S.cur]=i;
+  saveSession();render();
+}
+function startTicker(){
+  stopTicker();
+  ticker=setInterval(()=>{
+    if(!S||view.name!=='run')return stopTicker();
+    const el=$('#timer');const sec=curSec();
+    if(S.mode==='exam'){const left=(S.endsAt-Date.now())/1000;
+      if(el){el.textContent=clock(left);el.classList.toggle('low',left<=120)}
+      if(left<=0)finishSection(true);
+    }else if(el){el.textContent=clock((S.used[sec.id]+(Date.now()-shownAt))/1000)}
+  },500);
+}
+function stopTicker(){if(ticker){clearInterval(ticker);ticker=null}}
+function finishSection(auto){
+  commitTime();stopTicker();closeModal();
+  if(S.secIdx<S.order.length-1){S.secIdx++;S.phase='between';saveSession();view={name:'between',auto:!!auto};render()}
+  else finalize(auto);
+}
+function finalize(auto){
+  const test=curTest();const secs=S.order.map(id=>{
+    const sec=test.sections.find(s=>s.id===id);const r=scoreSection(sec,S.resp[id],test.negative);
+    return Object.assign({id,name:sec.name,short:sec.short,timeSec:Math.round(S.used[id]/1000),limitSec:sec.secs},r)});
+  const tot=secs.reduce((a,s)=>({attempted:a.attempted+s.attempted,correct:a.correct+s.correct,wrong:a.wrong+s.wrong,score:a.score+s.score,lost:a.lost+s.lost,max:a.max+s.max,n:a.n+s.n,timeSec:a.timeSec+s.timeSec}),{attempted:0,correct:0,wrong:0,score:0,lost:0,max:0,n:0,timeSec:0});
+  const timeQ={};S.order.forEach(id=>timeQ[id]=S.time[id].map(ms=>Math.round(ms/1000)));
+  const a={id:S.id,testId:S.testId,testTitle:test.title,mode:S.mode,scope:S.scope,startedAt:S.startedAt,finishedAt:Date.now(),timedOut:!!auto,sections:secs,total:tot,resp:S.resp,timeQ};
+  attempts.push(a);saveAttempts();S=null;saveSession();
+  if(db){db.doc('attempts/'+a.id).set(a).catch(()=>{})}
+  view={name:'result',id:a.id,sec:a.sections[0].id,filter:'all'};render();window.scrollTo(0,0);
+}
+
+/* ---------- modal ---------- */
+let modalOk=null;
+function modal(title,body,ok,onOk,cancel){
+  modalOk=onOk||null;const m=$('#modal');
+  m.innerHTML='<div class="box" role="dialog" aria-modal="true"><h2>'+esc(title)+'</h2><div>'+body+'</div><div class="row" style="justify-content:flex-end">'+(cancel?'<button class="btn" data-act="m-cancel">'+esc(cancel)+'</button>':'')+'<button class="btn primary" data-act="m-ok">'+esc(ok)+'</button></div></div>';
+  m.hidden=false;const b=m.querySelector('[data-act="m-ok"]');if(b)b.focus();
+}
+function closeModal(){$('#modal').hidden=true;modalOk=null}
+
+/* ---------- views ---------- */
+function lastFor(testId,secId){
+  for(let i=attempts.length-1;i>=0;i--){const a=attempts[i];if(a.testId!==testId)continue;const s=a.sections.find(x=>x.id===secId);if(s)return {a,s}}
+  return null;
+}
+function viewHome(){
+  if(!INDEX)return '<div class="wrap"><h1>Scale II Test Desk</h1><div class="banner">'+esc(loadError||'Loading tests…')+'</div>'+(loadError?'<div><button class="btn primary" data-act="reload">Try again</button></div>':'')+'</div>';
+  const d=daysTo(INDEX.examDate);
+  let h='<div class="wrap"><div class="head"><div><div class="label">'+esc(INDEX.exam)+'</div><h1>Scale II Test Desk</h1></div>'+
+    '<div class="count"><b>'+(d>=0?d:0)+'</b><span class="muted">days to the exam on 20 December</span></div></div>';
+  if(S){const meta=INDEX.tests.find(t=>t.id===S.testId);const sm=meta&&meta.sections.find(x=>x.id===S.order[S.secIdx]);
+    h+='<div class="banner row spread"><div><b>Unfinished '+(S.mode==='exam'?'timed test':'practice')+'</b><div class="small">'+esc(meta?meta.title:'')+(sm?' · '+esc(sm.name):'')+(S.mode==='exam'?' · the clock kept running while you were away':'')+'</div></div><div class="row"><button class="btn primary" data-act="resume">Resume</button><button class="btn danger" data-act="discard">Discard</button></div></div>'}
+  INDEX.tests.slice().reverse().forEach(t=>{
+    const totalMin=Math.round(t.sections.reduce((a,s)=>a+s.secs,0)/60);
+    h+='<section class="panel test"><div class="row spread"><div><h2>'+esc(t.title)+'</h2><div class="muted small">'+esc(t.note||'')+'</div></div>'+
+      '<button class="btn primary" data-act="start" data-test="'+t.id+'" data-mode="exam" data-scope="full">Full timed test · '+totalMin+' min</button></div>'+
+      '<div class="tablebox"><table><thead><tr><th>Section</th><th class="r">Qs</th><th class="r">Marks</th><th class="r">Time</th><th>Last attempt</th><th></th></tr></thead><tbody>';
+    t.sections.forEach(s=>{const l=lastFor(t.id,s.id);
+      h+='<tr><td><div class="secname">'+esc(s.name)+'</div><div>'+esc(s.syllabus)+'</div></td><td class="r">'+s.n+'</td><td class="r">'+fmtNum(s.n*s.marks)+'</td><td class="r">'+Math.round(s.secs/60*10)/10+' min</td>'+
+        '<td>'+(l?'<span class="num"><b>'+fmtNum(l.s.score)+'</b>/'+fmtNum(l.s.max)+'</span> <span class="cw small"><span class="c">'+l.s.correct+'</span>/<span class="w">'+l.s.wrong+'</span></span>':'<span class="muted">Not attempted</span>')+'</td>'+
+        '<td><div class="row" style="justify-content:flex-end;flex-wrap:nowrap"><button class="btn" data-act="start" data-test="'+t.id+'" data-mode="practice" data-scope="'+s.id+'">Practice</button><button class="btn ghost" data-act="start" data-test="'+t.id+'" data-mode="exam" data-scope="'+s.id+'">Timed</button></div></td></tr>'});
+    h+='</tbody></table></div><div class="muted small">Practice shows the answer and solution as soon as you choose. Timed mode follows the exam: sectional clock, no solutions until you submit, and 25% negative marking in both modes.</div></section>'});
+  h+='<section class="panel test"><h2>Your scorecards</h2>';
+  if(!attempts.length)h+='<p class="muted">No attempts yet. Finished practice sets and timed tests are listed here, newest first.</p>';
+  else{h+='<div class="tablebox"><table><thead><tr><th>Date</th><th>Test</th><th>Mode</th><th class="r">Attempted</th><th class="r">C/W</th><th class="r">Score</th><th class="r">Time</th><th></th></tr></thead><tbody>';
+    attempts.slice().reverse().forEach(a=>{const dt=new Date(a.finishedAt);
+      h+='<tr><td>'+dt.toLocaleDateString(undefined,{day:'numeric',month:'short'})+' <span class="muted">'+dt.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'})+'</span></td><td>'+esc(a.testTitle)+' <span class="muted">· '+esc(a.scope==='full'?'All sections':a.sections[0].name)+'</span></td>'+
+      '<td><span class="pill '+(a.mode==='exam'?'exam':'')+'">'+(a.mode==='exam'?'Timed':'Practice')+'</span></td><td class="r">'+a.total.attempted+'/'+a.total.n+'</td><td class="r cw"><span class="c">'+a.total.correct+'</span>/<span class="w">'+a.total.wrong+'</span></td>'+
+      '<td class="r num"><b>'+fmtNum(a.total.score)+'</b>/'+fmtNum(a.total.max)+'</td><td class="r">'+fmtTime(a.total.timeSec)+'</td><td class="r"><button class="btn" data-act="open" data-id="'+a.id+'">View</button></td></tr>'});
+    h+='</tbody></table></div>'}
+  return h+'</section></div>';
+}
+function palClass(id,i){
+  const r=S.resp[id][i];
+  if(S.mode==='practice'){if(r<0)return S.visited[id][i]?'':'';return r===curSec().qs[i].a?'an':'na'}
+  const m=S.marked[id][i];
+  if(r>=0&&m)return 'am';if(m)return 'mk';if(r>=0)return 'an';return S.visited[id][i]?'na':'';
+}
+function viewRun(){
+  const test=curTest(),sec=curSec(),id=sec.id,q=sec.qs[S.cur],r=S.resp[id][S.cur],practice=S.mode==='practice';
+  const done=practice&&r>=0;const last=S.cur===sec.qs.length-1;
+  const answered=S.resp[id].filter(x=>x>=0).length;
+  let live='';
+  if(practice){const sc=scoreSection(sec,S.resp[id],test.negative);live='<span class="cw"><span class="c">'+sc.correct+' correct</span> · <span class="w">'+sc.wrong+' wrong</span></span> · <span class="num">'+fmtNum(sc.score)+'</span> marks'}
+  let h='<div class="bar"><div class="in"><div><div class="label">'+esc(test.title)+' · '+(practice?'Practice':'Timed')+(S.order.length>1?' · Section '+(S.secIdx+1)+' of '+S.order.length:'')+'</div><h2>'+esc(sec.name)+'</h2></div>'+
+    '<div class="row"><span class="muted small">'+(practice?'Time spent':'Time left')+'</span><span id="timer" class="timer">'+(practice?clock(S.used[id]/1000):clock((S.endsAt-Date.now())/1000))+'</span></div></div></div>';
+  h+='<div class="wrap"><div class="run"><div class="panel sheet">'+
+    '<div class="row spread"><div class="label">Question '+(S.cur+1)+' of '+sec.qs.length+' · '+esc(q.t)+'</div><div class="small muted">+'+fmtNum(sec.marks)+' / −'+fmtNum(sec.marks*test.negative)+'</div></div>';
+  if(q.ctx)h+='<div class="ctx">'+txt(q.ctx)+'</div>';
+  h+='<div class="qtext">'+txt(q.q)+'</div><div class="opts">';
+  q.o.forEach((o,i)=>{let c='';
+    if(done){if(i===q.a)c='ok';else if(i===r)c='no'}else if(r===i)c='sel';
+    h+='<button class="opt '+c+'" data-act="choose" data-i="'+i+'"'+(done?' disabled':'')+'><span class="k">'+LETTERS[i]+'</span><span class="v">'+esc(o)+'</span></button>'});
+  h+='</div>';
+  if(done)h+='<div class="sol '+(r===q.a?'':'miss')+'"><b>'+(r===q.a?'Correct.':'Wrong. The answer is '+LETTERS[q.a]+'.')+'</b> '+esc(q.e)+'</div>';
+  h+='<div class="row spread"><div class="row"><button class="btn" data-act="prev"'+(S.cur===0?' disabled':'')+'>Previous</button>';
+  if(practice)h+='<button class="btn primary" data-act="next"'+(last?' disabled':'')+'>'+(done?'Next':'Skip')+'</button>';
+  else h+='<button class="btn review" data-act="mark">'+(S.marked[id][S.cur]?'Unmark':'Mark for review')+' &amp; next</button><button class="btn" data-act="clear"'+(r<0?' disabled':'')+'>Clear response</button><button class="btn primary" data-act="next">Save &amp; next</button>';
+  h+='</div><button class="btn '+(practice?'':'danger')+'" data-act="submit">'+(practice?'Finish practice':'Submit section')+'</button></div></div>';
+  h+='<aside class="panel side"><div class="row spread"><h3>Question palette</h3><span class="small muted">'+answered+'/'+sec.qs.length+' answered</span></div>'+(live?'<div class="small">'+live+'</div>':'')+'<div class="pal">';
+  sec.qs.forEach((_,i)=>{h+='<button class="'+palClass(id,i)+(i===S.cur?' cur':'')+'" data-act="jump" data-i="'+i+'" aria-label="Question '+(i+1)+'">'+(i+1)+'</button>'});
+  h+='</div><div class="legend">'+(practice?'<span><i class="an"></i>Correct</span><span><i class="na"></i>Wrong</span><span><i></i>Not answered</span>':'<span><i class="an"></i>Answered</span><span><i class="na"></i>Not answered</span><span><i class="mk"></i>Marked</span><span><i></i>Not visited</span>')+'</div>'+
+    '<div class="small muted">Keys: 1 to 5 choose an option, ← and → move between questions.</div></aside></div></div>';
+  return h;
+}
+function viewBetween(){
+  const test=curTest(),next=curSec(),prev=test.sections.find(s=>s.id===S.order[S.secIdx-1]);
+  return '<div class="wrap"><div class="panel test" style="max-width:560px"><div class="label">'+esc(test.title)+'</div><h1>'+esc(prev.name)+' '+(view.auto?'timed out':'submitted')+'</h1>'+
+    '<p>Next section: <b>'+esc(next.name)+'</b>, '+next.qs.length+' questions'+(S.mode==='exam'?' in '+Math.round(next.secs/60*10)/10+' minutes. The clock starts when you press the button. You cannot return to the previous section.':'.')+'</p>'+
+    '<div><button class="btn primary" data-act="begin">Start '+esc(next.name)+'</button></div></div></div>';
+}
+function viewResult(){
+  const a=attempts.find(x=>x.id===view.id);if(!a){view={name:'home'};return viewHome()}
+  const t=a.total,acc=t.attempted?Math.round(t.correct/t.attempted*100):0;
+  let h='<div class="wrap"><div class="head"><div><div class="label">'+esc(a.testTitle)+' · '+(a.mode==='exam'?'Timed':'Practice')+' · '+new Date(a.finishedAt).toLocaleString(undefined,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</div><h1>Scorecard</h1></div>'+
+    '<div class="row"><button class="btn" data-act="copy" data-id="'+a.id+'">Copy result for mentor</button><button class="btn primary" data-act="home">Back to tests</button></div></div>';
+  h+='<div class="tiles"><div class="panel tile"><span class="label">Score</span><b>'+fmtNum(t.score)+'<span class="muted" style="font-size:16px">/'+fmtNum(t.max)+'</span></b></div>'+
+     '<div class="panel tile"><span class="label">Attempted</span><b>'+t.attempted+'<span class="muted" style="font-size:16px">/'+t.n+'</span></b></div>'+
+     '<div class="panel tile"><span class="label">Correct / wrong</span><b class="cw"><span class="c">'+t.correct+'</span>/<span class="w">'+t.wrong+'</span></b></div>'+
+     '<div class="panel tile"><span class="label">Accuracy</span><b>'+acc+'%</b></div>'+
+     '<div class="panel tile"><span class="label">Lost to negatives</span><b>'+fmtNum(t.lost)+'</b></div>'+
+     '<div class="panel tile"><span class="label">Time used</span><b>'+fmtTime(t.timeSec)+'</b></div></div>';
+  h+='<section class="panel test"><h2>Section-wise</h2><div class="tablebox"><table><thead><tr><th>Section</th><th class="r">Attempted</th><th class="r">C/W</th><th class="r">Score</th><th class="r">Accuracy</th><th class="r">Time</th></tr></thead><tbody>';
+  a.sections.forEach(s=>{h+='<tr><td class="secname">'+esc(s.name)+'</td><td class="r">'+s.attempted+'/'+s.n+'</td><td class="r cw"><span class="c">'+s.correct+'</span>/<span class="w">'+s.wrong+'</span></td><td class="r num"><b>'+fmtNum(s.score)+'</b>/'+fmtNum(s.max)+'</td><td class="r">'+(s.attempted?Math.round(s.correct/s.attempted*100):0)+'%</td><td class="r">'+fmtTime(s.timeSec)+'</td></tr>'});
+  h+='</tbody></table></div></section>';
+  const rows=[];a.sections.forEach(s=>Object.keys(s.topics).forEach(k=>{const v=s.topics[k];rows.push({sec:s.short,k,c:v[0],w:v[1],sk:v[2],p:(v[0]+v[1]+v[2])?v[0]/(v[0]+v[1]+v[2]):0})}));
+  rows.sort((x,y)=>x.p-y.p);
+  h+='<section class="panel test"><div><h2>Topic-wise, weakest first</h2><div class="muted small">Share of all questions in the topic that you got right.</div></div><div class="tablebox"><table><thead><tr><th>Topic</th><th class="r">Correct</th><th class="r">Wrong</th><th class="r">Skipped</th><th class="r">Right overall</th></tr></thead><tbody>';
+  rows.forEach(r=>{h+='<tr><td><span class="pill">'+esc(r.sec)+'</span> '+esc(r.k)+'</td><td class="r cw"><span class="c">'+r.c+'</span></td><td class="r cw"><span class="w">'+r.w+'</span></td><td class="r">'+r.sk+'</td><td class="r">'+Math.round(r.p*100)+'%</td></tr>'});
+  h+='</tbody></table></div></section>';
+  h+='<section class="panel test"><h2>Solutions</h2>';
+  const test=TESTS[a.testId];
+  if(!test){h+='<p class="muted">Loading questions…</p></section></div>';return h}
+  h+='<div class="chips">'+a.sections.map(s=>'<button class="chip '+(view.sec===s.id?'on':'')+'" data-act="rsec" data-sec="'+s.id+'">'+esc(s.name)+'</button>').join('')+'</div>'+
+     '<div class="chips">'+[['all','All'],['wrong','Wrong'],['skipped','Skipped'],['correct','Correct']].map(f=>'<button class="chip '+(view.filter===f[0]?'on':'')+'" data-act="rfil" data-f="'+f[0]+'">'+f[1]+'</button>').join('')+'</div>';
+  const sec=test.sections.find(s=>s.id===view.sec),resp=a.resp[view.sec]||[],tq=(a.timeQ&&a.timeQ[view.sec])||[];let shown=0;
+  sec.qs.forEach((q,i)=>{const r=resp[i]==null?-1:resp[i];const st=r<0?'skipped':(r===q.a?'correct':'wrong');
+    if(view.filter!=='all'&&view.filter!==st)return;shown++;
+    h+='<div class="rv" style="border-top:1px solid var(--line);padding-inline:0"><div class="row spread"><div class="label">Question '+(i+1)+' · '+esc(q.t)+'</div><div class="small muted">'+(tq[i]?fmtTime(tq[i]):'')+'</div></div>'+
+      (q.ctx?'<div class="ctx">'+txt(q.ctx)+'</div>':'')+'<div class="qtext">'+txt(q.q)+'</div><div class="opts">'+
+      q.o.map((o,j)=>'<div class="opt '+(j===q.a?'ok':(j===r?'no':''))+'"><span class="k">'+LETTERS[j]+'</span><span class="v">'+esc(o)+(j===r?' <span class="muted small">(your answer)</span>':'')+'</span></div>').join('')+
+      '</div><div class="sol '+(st==='correct'?'':st==='wrong'?'miss':'skip')+'"><b>'+(st==='correct'?'Correct.':st==='wrong'?'Wrong. The answer is '+LETTERS[q.a]+'.':'Skipped. The answer is '+LETTERS[q.a]+'.')+'</b> '+esc(q.e)+'</div></div>'});
+  if(!shown)h+='<p class="muted">No questions match this filter.</p>';
+  return h+'</section></div>';
+}
+function render(){
+  const app=$('#app');
+  app.innerHTML=view.name==='run'?viewRun():view.name==='between'?viewBetween():view.name==='result'?viewResult():viewHome();
+}
+function summaryText(a){
+  const L=[a.testTitle+' | '+(a.mode==='exam'?'Timed':'Practice')+' | '+new Date(a.finishedAt).toLocaleString(),
+    'TOTAL: score '+fmtNum(a.total.score)+'/'+fmtNum(a.total.max)+', attempted '+a.total.attempted+'/'+a.total.n+', C/W '+a.total.correct+'/'+a.total.wrong+', time '+fmtTime(a.total.timeSec)];
+  a.sections.forEach(s=>{L.push(s.short+': score '+fmtNum(s.score)+'/'+fmtNum(s.max)+', attempted '+s.attempted+'/'+s.n+', C/W '+s.correct+'/'+s.wrong+', time '+fmtTime(s.timeSec));
+    Object.keys(s.topics).forEach(k=>{const v=s.topics[k];L.push('  - '+k+': '+v[0]+' correct, '+v[1]+' wrong, '+v[2]+' skipped')})});
+  return L.join('\n');
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;
+  if(act==='m-cancel')return closeModal();
+  if(act==='m-ok'){const f=modalOk;closeModal();if(f)f();return}
+  if(act==='reload'){await loadIndex();return render()}
+  if(act==='home'){view={name:'home'};render();return window.scrollTo(0,0)}
+  if(act==='start'){
+    const go=()=>startSession(b.dataset.test,b.dataset.mode,b.dataset.scope);
+    if(S)return modal('Replace the unfinished attempt?','<p>You have an unfinished attempt. Starting a new one discards it.</p>','Discard and start',go,'Keep it');
+    if(b.dataset.mode==='exam'){const t=INDEX.tests.find(x=>x.id===b.dataset.test);const full=b.dataset.scope==='full';const s=full?null:t.sections.find(x=>x.id===b.dataset.scope);
+      return modal(full?'Start the full timed test?':'Start timed '+s.name+'?','<p>'+(full?t.sections.length+' sections in order, each with its own clock. You cannot go back to a finished section.':s.n+' questions in '+Math.round(s.secs/60*10)/10+' minutes.')+' The clock starts now and keeps running if you leave the page. Wrong answers cost 25% of the marks.</p>','Start',go,'Cancel')}
+    return go();
+  }
+  if(act==='resume'){try{await loadTest(S.testId)}catch(err){return modal('Could not open the test','<p>The question file did not load. Try again.</p>','Close')}
+    if(S.phase==='between'){view={name:'between',auto:false};return render()}
+    if(S.mode==='exam'&&Date.now()>=S.endsAt){view={name:'run'};return finishSection(true)}
+    shownAt=Date.now();view={name:'run'};render();return startTicker()}
+  if(act==='discard')return modal('Discard this attempt?','<p>Your answers in the unfinished attempt will be removed.</p>','Discard',()=>{S=null;saveSession();render()},'Keep it');
+  if(act==='open'){const a=attempts.find(x=>x.id===b.dataset.id);view={name:'result',id:a.id,sec:a.sections[0].id,filter:'all'};render();window.scrollTo(0,0);
+    try{await loadTest(a.testId);if(view.name==='result')render()}catch(err){}return}
+  if(act==='rsec'){view.sec=b.dataset.sec;return render()}
+  if(act==='rfil'){view.filter=b.dataset.f;return render()}
+  if(act==='copy'){const a=attempts.find(x=>x.id===b.dataset.id),t=summaryText(a);
+    const fallback=()=>{modal('Copy this result','<textarea class="copy" id="copyta" readonly>'+esc(t)+'</textarea><p class="small muted">Select all the text and copy it into the chat.</p>','Done');const ta=$('#copyta');if(ta){ta.focus();ta.select()}};
+    try{await navigator.clipboard.writeText(t);b.textContent='Copied';setTimeout(()=>{b.textContent='Copy result for mentor'},1600)}catch(err){fallback()}return}
+  if(!S)return;
+  const sec=(view.name==='run'||view.name==='between')&&TESTS[S.testId]?curSec():null;
+  if(act==='begin')return beginSection();
+  if(view.name!=='run')return;
+  if(act==='choose')return choose(+b.dataset.i);
+  if(act==='jump')return goTo(+b.dataset.i);
+  if(act==='prev')return goTo(S.cur-1);
+  if(act==='next'){if(S.cur<sec.qs.length-1)return goTo(S.cur+1);return askSubmit()}
+  if(act==='clear'){S.resp[sec.id][S.cur]=-1;saveSession();return render()}
+  if(act==='mark'){S.marked[sec.id][S.cur]=!S.marked[sec.id][S.cur];saveSession();if(S.cur<sec.qs.length-1)return goTo(S.cur+1);return render()}
+  if(act==='submit')return askSubmit();
+});
+function askSubmit(){
+  const sec=curSec(),id=sec.id,ans=S.resp[id].filter(x=>x>=0).length,mk=S.marked[id].filter(Boolean).length;
+  const lastSec=S.secIdx===S.order.length-1;
+  modal(S.mode==='practice'?'Finish this practice set?':'Submit '+sec.name+'?',
+    '<p><b>'+ans+'</b> answered, <b>'+(sec.qs.length-ans)+'</b> not answered'+(S.mode==='exam'?', <b>'+mk+'</b> marked for review':'')+'.</p><p class="muted small">'+(lastSec?'Your scorecard and all solutions open next.':'You cannot return to this section after submitting.')+'</p>',
+    S.mode==='practice'?'Finish':'Submit',()=>finishSection(false),'Go back');
+}
+document.addEventListener('keydown',e=>{
+  if(!S||view.name!=='run'||!$('#modal').hidden||e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=e.key;
+  if(k>='1'&&k<='5'){e.preventDefault();choose(+k-1)}
+  else if(k==='ArrowRight'){e.preventDefault();goTo(S.cur+1)}
+  else if(k==='ArrowLeft'){e.preventDefault();goTo(S.cur-1)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeModal()});
+window.addEventListener('pagehide',()=>{if(S&&view.name==='run'){commitTime();saveSession()}});
+
+(async function boot(){
+  await loadIndex();render();initDb();
+})();
+</script>
+</body>
+</html>

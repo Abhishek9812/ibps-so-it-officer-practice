@@ -1,0 +1,50 @@
+Generations | First generation computers were based on: | Vacuum tubes | Transistors | Integrated circuits | Microprocessors | Artificial intelligence chips | 1st: vacuum tubes. 2nd: transistors. 3rd: ICs. 4th: microprocessors.
+Generations | Transistors were the main technology of which generation of computers? | Second | First | Third | Fourth | Fifth | Transistors replaced vacuum tubes in the second generation.
+Generations | Integrated circuits (ICs) were first used in which generation of computers? | Third | First | Second | Fourth | Fifth | Third generation computers used ICs.
+Generations | The microprocessor is associated with which generation of computers? | Fourth | Second | Third | First | Fifth | Fourth generation: VLSI and microprocessors.
+Hardware | Which part of the computer is known as its brain? | CPU | RAM | Hard disk | Motherboard | Monitor | The CPU carries out all instructions.
+Memory | Which of the following is the fastest type of memory? | CPU register | Cache memory | RAM | Solid state drive | Hard disk | Speed order: register, cache, RAM, SSD, hard disk.
+Memory | Which of the following is non-volatile memory? | ROM | RAM | Cache | CPU register | DRAM | ROM keeps its contents when power is off.
+Memory | Firmware is normally stored in: | ROM | RAM | Cache memory | Hard disk swap area | CPU register | Firmware, such as the BIOS, lives in ROM or flash memory.
+Memory | Which memory loses its contents when the power is switched off? | RAM | ROM | Hard disk | Pen drive | DVD | RAM is volatile.
+Units | A group of 4 bits is called a: | Nibble | Byte | Word | Kilobit | Pixel | 4 bits = 1 nibble. 8 bits = 1 byte.
+Units | 1 gigabyte (GB) is equal to: | 1024 MB | 1024 KB | 1000 bytes | 1024 TB | 100 MB | 1 GB = 1024 MB. 1 MB = 1024 KB.
+Networking | An IPv4 address is how many bits long? | 32 | 16 | 48 | 64 | 128 | IPv4 = 32 bits, written as four decimal numbers.
+Networking | An IPv6 address is how many bits long? | 128 | 32 | 48 | 64 | 256 | IPv6 = 128 bits, written in hexadecimal.
+Networking | A MAC address is how many bits long? | 48 | 32 | 64 | 128 | 16 | A MAC (physical) address has 48 bits, shown as 12 hexadecimal digits.
+Networking | The default port number of POP3 is: | 110 | 25 | 80 | 143 | 21 | POP3: 110. SMTP: 25. IMAP: 143.
+Networking | The default port number of HTTPS is: | 443 | 80 | 8080 | 22 | 53 | HTTP: 80. HTTPS: 443.
+Networking | Which protocol is used to send email from a client to a mail server? | SMTP | POP3 | FTP | SNMP | HTTP | SMTP sends mail. POP3 and IMAP receive it.
+Networking | Which service translates a domain name into an IP address? | DNS | DHCP | FTP | ARP | NAT | DNS maps names like example.com to IP addresses. It uses port 53.
+Networking | In which topology is every node connected directly to every other node? | Mesh | Star | Bus | Ring | Tree | A full mesh has a link between every pair of nodes.
+Networking | In which topology are all devices connected to a central hub or switch? | Star | Ring | Bus | Mesh | Hybrid | Star topology uses a central device.
+Networking | A network that connects computers inside a single building is called a: | LAN | WAN | MAN | PAN | VPN | LAN = Local Area Network.
+Networking | Which device works at the network layer and forwards packets between different networks? | Router | Hub | Repeater | Switch | Bridge | Routers use IP addresses (layer 3). Switches and bridges work at layer 2.
+Networking | Which of the following gives the safest connection over a public network? | VPN | Open Wi-Fi | Telnet | FTP | HTTP | A VPN encrypts traffic between your device and the network.
+Internet | URL stands for: | Uniform Resource Locator | Universal Resource Link | Uniform Reference Locator | Unified Resource Locator | Universal Reference Link | A URL is the address of a web page.
+MS Office | The default file extension of a Microsoft Word 2016 document is: | .docx | .doc | .txt | .wrd | .dotx | Word 2007 and later save as .docx by default.
+MS Office | The default file extension of a Microsoft Excel 2016 workbook is: | .xlsx | .xls | .csv | .xlw | .exl | Excel 2007 and later save as .xlsx by default.
+MS Office | The default slide orientation in Microsoft PowerPoint is: | Landscape | Portrait | Square | Vertical | Diagonal | Slides are landscape by default. Word pages are portrait by default.
+MS Office | Which shortcut key is used to undo the last action? | Ctrl + Z | Ctrl + Y | Ctrl + U | Ctrl + X | Ctrl + N | Ctrl + Z undoes. Ctrl + Y redoes.
+MS Office | In Microsoft Word, Ctrl + K is used to: | Insert a hyperlink | Make text italic | Open the Find box | Check spelling | Insert a page break | Ctrl + K opens the Insert Hyperlink box.
+MS Office | Which function key starts the spelling and grammar check in Microsoft Word? | F7 | F5 | F1 | F12 | F2 | F7 runs the spell check. F12 opens Save As.
+MS Office | In Microsoft PowerPoint, which key starts the slide show from the first slide? | F5 | F7 | F2 | F11 | F9 | F5 starts from the beginning. Shift + F5 starts from the current slide.
+MS Office | Every formula in Microsoft Excel begins with which sign? | = | + | # | @ | $ | A formula starts with the equals sign, for example =SUM(A1:A5).
+MS Office | In Microsoft Excel, the intersection of a row and a column is called a: | Cell | Range | Table | Field | Sheet | A cell is named by its column letter and row number, such as B4.
+MS Office | Which Excel function counts the cells in a range that contain numbers? | COUNT | SUM | COUNTA | LEN | TOTAL | COUNT counts numeric cells. COUNTA counts all non-empty cells.
+MS Office | In Microsoft Excel, pressing Ctrl + Home moves the cursor to: | Cell A1 | The last used cell | The start of the current row | The next worksheet | The last row of the sheet | Ctrl + Home goes to A1. Ctrl + End goes to the last used cell.
+Operating system | Linux is an example of: | Open-source operating system | Application software | Proprietary database | Programming language | Web browser | Linux is a free, open-source, multi-user operating system.
+Operating system | MS-DOS is a: | Single-user, command-line operating system | Multi-user, graphical operating system | Network operating system | Real-time operating system | Mobile operating system | MS-DOS runs one user and one task at a time through typed commands.
+Operating system | In a time-sharing operating system: | CPU time is divided into small slices among many users | Only one program runs until it finishes | Jobs are collected and run in batches without interaction | Programs run only at fixed clock times | Each user gets a separate CPU | Each user gets a short time slice in turn, so everyone seems to be served at once.
+Operating system | POST, which runs when a computer is switched on, stands for: | Power-On Self-Test | Program-On System Test | Power-On System Transfer | Primary Operating System Test | Pre-Operation Start Test | POST checks the hardware before the operating system loads.
+Operating system | Which key combination deletes a file permanently without sending it to the Recycle Bin? | Shift + Delete | Ctrl + Delete | Alt + Delete | Ctrl + D | Alt + F4 | Shift + Delete bypasses the Recycle Bin.
+Security | A Trojan horse is: | A harmful program disguised as useful software | A program that copies itself across a network without help | A hardware fault in the hard disk | A tool that speeds up the computer | An email sent to many people | A Trojan pretends to be useful software. Unlike a virus or worm, it does not replicate itself.
+Security | Malware that spreads from computer to computer over a network by copying itself, without attaching to a file, is called a: | Worm | Trojan horse | Spyware | Adware | Rootkit | A worm is self-replicating and needs no host file.
+Security | Sending fake emails that look like they come from a bank, in order to steal passwords, is called: | Phishing | Spoofing of hardware | Spamming | Hacking of routers | Skimming | Phishing tricks users into giving away confidential details.
+Security | A firewall is used to: | Filter incoming and outgoing network traffic | Increase the speed of the internet | Store passwords | Remove viruses from files | Cool the processor | A firewall blocks unauthorised access based on rules.
+Number system | The binary equivalent of the decimal number 13 is: | 1101 | 1011 | 1110 | 1001 | 1111 | 13 = 8 + 4 + 1 = 1101.
+Number system | The decimal equivalent of the hexadecimal number 1F is: | 31 | 15 | 25 | 17 | 32 | 1F = 1 × 16 + 15 = 31.
+Number system | Standard ASCII is a 7-bit code. How many characters can it represent? | 128 | 64 | 256 | 127 | 512 | 2 to the power 7 = 128.
+Software | Which translator converts a whole high-level program into machine code in one go? | Compiler | Interpreter | Assembler | Loader | Linker | A compiler translates the full program. An interpreter works line by line.
+Hardware | Which of the following is an input device? | Scanner | Printer | Plotter | Speaker | Projector | A scanner sends data into the computer. The others are output devices.
+Hardware | The speed of a processor is measured in: | Gigahertz | Gigabytes | Bits per second | Dots per inch | Pixels | Clock speed is given in hertz, usually GHz.
