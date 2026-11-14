@@ -33,9 +33,20 @@ secs=[
  dict(id='fa',name='Financial Awareness',short='FA',marks=1,secs=1125,syllabus='RBI and monetary policy',qs=parse('fa.txt')),
  dict(id='ck',name='Computer Knowledge',short='CK',marks=0.5,secs=1125,syllabus='Fundamentals, memory, networking, MS Office, security',qs=parse('ck.txt')),
 ]
-test=dict(id='day1',title='Day 1 Practice Set',date='2026-11-12',negative=0.25,sections=secs)
-json.dump(test,open('../tests/day1.json','w'),ensure_ascii=False)
-idx=dict(exam='IBPS RRB Officer Scale II (IT)',examDate='2026-12-20',tests=[dict(id='day1',title='Day 1 Practice Set',date='2026-11-12',file='tests/day1.json',note='Approximation, direction sense, RBI and monetary policy, DBMS keys and normalization, plus English and computer basics',sections=[dict(id=s['id'],name=s['name'],short=s['short'],n=len(s['qs']),marks=s['marks'],secs=s['secs'],syllabus=s['syllabus']) for s in secs])])
-json.dump(idx,open('../tests/index.json','w'),ensure_ascii=False)
+TESTS=[]
+def add_test(id,title,date,note,secs):
+    json.dump(dict(id=id,title=title,date=date,negative=0.25,sections=secs),open(f'../tests/{id}.json','w'),ensure_ascii=False)
+    TESTS.append(dict(id=id,title=title,date=date,file=f'tests/{id}.json',note=note,
+        sections=[dict(id=s['id'],name=s['name'],short=s['short'],n=len(s['qs']),marks=s['marks'],secs=s['secs'],syllabus=s['syllabus']) for s in secs]))
+
+add_test('day1','Day 1 Practice Set','2026-11-12','Approximation, direction sense, RBI and monetary policy, DBMS keys and normalization, plus English and computer basics',secs)
+
+# Parsed after Day 1 so Day 1's option order stays the same.
+pk26=[dict(id='pk',name='Professional Knowledge',short='PK',marks=1,secs=2250,
+  syllabus='XSS, SHA-256, certificates, MITM, HAVING, BCNF, lossless join, linked list, AVL, A*, PCA, Kubernetes, blockchain, C++/Java/C#, sliding window, TCP window, subnetting, CRC, grep, CPU time, cyclomatic complexity, DPDP Act',
+  qs=parse('pk_so26.txt'))]
+add_test('pk-so26','PK Set: SO IT Mains 2026 pattern','2026-11-14','Topics and numericals from the IBPS SO IT Mains paper of 1 Nov 2026, moderate to hard',pk26)
+
+json.dump(dict(exam='IBPS RRB Officer Scale II (IT)',examDate='2026-12-20',tests=TESTS),open('../tests/index.json','w'),ensure_ascii=False)
 from collections import Counter
-for s in secs: print(s['id'],len(s['qs']),Counter(q['a'] for q in s['qs']))
+for s in secs+pk26: print(s['id'],len(s['qs']),Counter(q['a'] for q in s['qs']))
